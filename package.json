@@ -1,0 +1,12 @@
+{
+  "name": "node-streaming-server",
+  "version": "1.0.0",
+  "description": "H.264 relay server for F16 HUD video streaming (zero dependencies)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,26 @@
+# --- Toolchain (fetched by download-tools.cmd / download-tools.sh) ---
+tools/
+node-portable/
+
+# --- Dependencies ---
+node_modules/
+package-lock.json.bak
+
+# --- Runtime state ---
+.ports.json
+*.log
+npm-debug.log*
+
+# --- Secrets ---
+.env
+.env.*
+
+# --- Build output (produced by build.cmd / build.sh) ---
+dist/
+build/
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
