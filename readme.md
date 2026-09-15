@@ -27,6 +27,7 @@ but the wire protocol is simple enough for anything that can emit Annex-B H.264.
 - [Security](#security)
 - [Troubleshooting](#troubleshooting)
 - [Project layout](#project-layout)
+- [Contributing](#contributing)
 
 ---
 
@@ -316,3 +317,30 @@ node-streaming-server/
 ├── tools/                    downloaded toolchain        (git-ignored)
 └── dist/                     build output                (git-ignored)
 ```
+
+## Contributing
+
+`main` is protected: it takes a pull request, and a pull request takes an
+approving review from [@ErickDoppler](https://github.com/ErickDoppler), who owns
+every path in the repository. Nothing lands on `main` any other way.
+
+If you have push access to this repository:
+
+```bash
+git switch -c my-change
+# ...work...
+git push -u origin my-change
+gh pr create            # or open it on github.com
+```
+
+If you do not, fork the repository, push the branch to your fork, and open the
+pull request from there. Either way the review path is the same.
+
+Before you push, make sure the build still passes — it is the whole test suite:
+
+```bash
+./build.sh              # build.cmd on Windows
+```
+
+Pushing new commits to an open pull request dismisses the existing approval, so
+expect another round of review after a fixup.

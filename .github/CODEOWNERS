@@ -1,0 +1,8 @@
+# Every file in this repository is owned by @ErickDoppler.
+#
+# Paired with the "Require review from Code Owners" branch protection rule on
+# main, this is what makes his approval the only one that unblocks a pull
+# request: reviews from anyone else are welcome, but they do not satisfy the
+# requirement on their own.
+
+* @ErickDoppler
