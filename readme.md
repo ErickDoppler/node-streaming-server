@@ -12,12 +12,95 @@ but the wire protocol is simple enough for anything that can emit Annex-B H.264.
 
 ---
 
+## Run it
+
+Three steps on either platform: **get the toolchain**, **build**, **start**.
+Nothing is installed system-wide, nothing is added to your PATH, and nothing
+touches the registry — everything lives inside this folder.
+
+### Windows
+
+**1. Get the toolchain.** Double-click `download-tools.cmd`, or run it from a
+terminal in this folder. It downloads a portable Node.js into `tools\node\`
+(~33 MB, verified against nodejs.org's SHA-256 checksums), and skips the
+download entirely if you already have Node.js 18 or newer.
+
+```bat
+download-tools.cmd
+```
+
+**2. Build.** Parse-checks the sources, stages a self-contained `dist\` folder,
+then actually starts that server and relays a real video frame through it — 20
+checks — before it reports success.
+
+```bat
+build.cmd
+```
+
+**3. Start it.** Launches the server and opens the viewer page in your browser.
+
+```bat
+dist\run.cmd
+```
+
+### Linux / macOS
+
+**1. Get the toolchain.** Downloads a portable Node.js into `tools/node/`
+(~50 MB, verified against nodejs.org's SHA-256 checksums), and skips the
+download entirely if you already have Node.js 18 or newer. No sudo, no package
+manager.
+
+```bash
+./download-tools.sh
+```
+
+**2. Build.** Parse-checks the sources, stages a self-contained `dist/` folder,
+then actually starts that server and relays a real video frame through it — 20
+checks — before it reports success.
+
+```bash
+./build.sh
+```
+
+**3. Start it.** Launches the server and opens the viewer page in your browser.
+
+```bash
+./dist/run.sh
+```
+
+*(The `.sh` files are committed executable, so a `git clone` needs no `chmod`.
+If you downloaded a ZIP instead, run `chmod +x *.sh` once.)*
+
+### Then what
+
+The server prints the port it bound on startup — it prefers **80**, then 8080,
+then 8000. Open `http://<server-ip>:<port>/` from any browser on the network,
+type a stream key, and press **CONNECT**. Point your encoder at that same
+`<server-ip>:<port>` with the same key, and the picture appears.
+
+### Deploying it elsewhere
+
+Build with the Node.js runtime baked in, then copy the whole `dist/` folder to
+the target machine — it needs nothing installed at all, not even Node.js:
+
+```bat
+build.cmd --bundle-node
+```
+
+```bash
+./build.sh --bundle-node
+```
+
+Then run `run.cmd` or `run.sh` inside the copied folder.
+
+---
+
 ## Contents
 
+- [Run it](#run-it)
 - [Why one port](#why-one-port)
 - [How it works](#how-it-works)
 - [Requirements](#requirements)
-- [Quick start](#quick-start)
 - [The scripts](#the-scripts)
 - [Using the viewer page](#using-the-viewer-page)
 - [Publishing a stream](#publishing-a-stream)
@@ -96,44 +179,6 @@ A few details that matter in practice:
   Chrome, Edge, Firefox, Safari 13+, Android WebView).
 
 No npm install, no build toolchain, no native modules.
-
-## Quick start
-
-**Windows**
-
-```bat
-download-tools.cmd
-build.cmd
-dist\run.cmd
-```
-
-**Linux / macOS**
-
-```bash
-chmod +x download-tools.sh build.sh
-./download-tools.sh
-./build.sh
-./dist/run.sh
-```
-
-`download-tools` puts a portable Node.js in `tools/node/` (or tells you the one
-already on your PATH is fine). `build` checks the sources, stages a
-self-contained `dist/` folder, then actually starts that folder's server and
-streams a frame through it to prove it works. `run` starts the server and opens
-the viewer page in your browser.
-
-Want a `dist/` that runs on a machine with no Node.js at all? Build it with the
-runtime baked in:
-
-```bat
-build.cmd --bundle-node
-```
-
-```bash
-./build.sh --bundle-node
-```
-
-Then copy the whole `dist/` folder anywhere and run `run.cmd` / `run.sh`.
 
 ## The scripts
 
